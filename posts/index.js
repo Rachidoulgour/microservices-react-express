@@ -25,6 +25,10 @@ app.post('/posts', async (req, res) => {
     res.status(200).send(posts);
 });
 
+app.post('/events', async (req, res) => {
+
+});
+
 app.listen(5000, () => {
     console.log('listening on port 5000');
 });
