@@ -30,5 +30,6 @@ app.post('/events', async (req, res) => {
 });
 
 app.listen(5000, () => {
+    console.log("testing update deplyment")
     console.log('listening on port 5000');
 });
