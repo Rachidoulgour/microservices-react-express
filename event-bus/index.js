@@ -1,20 +1,37 @@
 const express = require('express');
 const cors = require('cors');
+const axios = require('axios');
 const app = express();
 
 app.use(express.json());
 app.use(cors());
 
+const events = [];
 
 app.post('/events', (req, res) => {
     const event = req.body;
-    axios.post('http://posts-clusterip-srv:5000/events', event).catch((err) => { console.log(err.message); });
-    axios.post('http://comments-srv:5001/events', event).catch((err) => { console.log(err.message); });
-    axios.post('http://query-srv:5002/events', event).catch((err) => { console.log(err.message); });
-    axios.post('http://moderation-srv:5003/events', event).catch((err) => { console.log(err.message); });
+    events.push(event);
+    try {
+        axios.post('http://posts-clusterip-srv:5000/events', event);
+        axios.post('http://comments-srv:5001/events', event);
+        axios.post('http://query-srv:5002/events', event)
+        axios.post('http://moderation-srv:5003/events', event);
+
+        res.send({ status: 'OK' });
+    } catch (error) {
+        res.send(error);
+    }
+    // .catch((err) => { console.log(err.message); });
+    // .catch((err) => { console.log(err.message); });
+    // .catch((err) => { console.log(err.message); });
+    // .catch((err) => { console.log(err.message); });
     
-    req.send({ status: 'OK' });
+    
 });
+
+app.get('/events', (req, res) => {
+    res.send(events);
+})
 
 app.listen(5005, () => {
     console.log('listening on port 5005');

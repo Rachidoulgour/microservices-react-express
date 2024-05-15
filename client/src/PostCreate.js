@@ -6,8 +6,9 @@ import axios from "axios";
 const PostCreate = () => {
     const [title, setTilte] = useState('');
     const onSubmit = async (event) => {
+        console.log(event)
         event.preventDefault();
-        await axios.post('http://posts.com/posts', {
+        await axios.post('http://posts.com/posts/create', {
             title
         });
         setTilte('');
@@ -17,7 +18,7 @@ const PostCreate = () => {
             <form onSubmit={onSubmit}>
                 <div className="form-group">
                     <label>Title</label>
-                    <input value={title} onChamge={e => setTilte(e.target.value)} className="form-control" />
+                    <input value={title} onChange={e => setTilte(e.target.value)} className="form-control" />
                 </div>
                 <button className="btn btn-primary">Submit</button>
             </form>

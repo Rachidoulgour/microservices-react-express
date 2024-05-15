@@ -15,6 +15,7 @@ spec:
       containers:
         - name: client
           image: rachidoulgour/client
+          imagePullPolicy: Always
 ---
 apiVersion: v1
 kind: Service
